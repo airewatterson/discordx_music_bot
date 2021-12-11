@@ -35,5 +35,5 @@ client.on("messageCreate", (message: Message) => {
 });
 
 importx(path.join(__dirname, "commands", "**/*.cmd.{ts,js}")).then(() => {
-  client.login(process.env.BOT_TOKEN ?? "OTE4Nzc3MzAwNjEzNDcyMjc2.YbMMCg.Qp4rZSHJSCFnm-DAdeYS4lXSnrs"); // provide your bot token
+  client.login(process.env.BOT_TOKEN ?? "TOKEN放這裡"); 
 });
