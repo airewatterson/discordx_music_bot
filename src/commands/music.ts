@@ -65,28 +65,28 @@ export class MyQueue extends Queue {
 
   private controlsRow(): MessageActionRow[] {
     const nextButton = new MessageButton()
-      .setLabel("Next")
+      .setLabel("下一首歌")
       .setEmoji("⏭")
       .setStyle("PRIMARY")
       .setDisabled(!this.isPlaying)
       .setCustomId("btn-next");
     const pauseButton = new MessageButton()
-      .setLabel(this.isPlaying ? "Pause" : "Resume")
+      .setLabel(this.isPlaying ? "暫停" : "繼續")
       .setEmoji(this.isPlaying ? "⏸️" : "▶️")
       .setStyle("PRIMARY")
       .setCustomId("btn-pause");
     const stopButton = new MessageButton()
-      .setLabel("Stop")
+      .setLabel("停止播放")
       .setStyle("DANGER")
       .setCustomId("btn-leave");
     const repeatButton = new MessageButton()
-      .setLabel("Repeat")
+      .setLabel("重複單曲")
       .setEmoji("🔂")
       .setDisabled(!this.isPlaying)
       .setStyle(this.repeat ? "DANGER" : "PRIMARY")
       .setCustomId("btn-repeat");
     const loopButton = new MessageButton()
-      .setLabel("Loop")
+      .setLabel("重複全部")
       .setEmoji("🔁")
       .setDisabled(!this.isPlaying)
       .setStyle(this.loop ? "DANGER" : "PRIMARY")
@@ -101,18 +101,18 @@ export class MyQueue extends Queue {
     );
 
     const queueButton = new MessageButton()
-      .setLabel("Queue")
+      .setLabel("播放清單")
       .setEmoji("🎵")
       .setStyle("PRIMARY")
       .setCustomId("btn-queue");
     const mixButton = new MessageButton()
-      .setLabel("Shuffle")
+      .setLabel("隨機播放")
       .setEmoji("🎛️")
       .setDisabled(!this.isPlaying)
       .setStyle("PRIMARY")
       .setCustomId("btn-mix");
     const controlsButton = new MessageButton()
-      .setLabel("Controls")
+      .setLabel("清除操作")
       .setEmoji("🔄")
       .setStyle("PRIMARY")
       .setCustomId("btn-controls");
@@ -134,7 +134,7 @@ export class MyQueue extends Queue {
     }
     this.lockUpdate = true;
     const embed = new MessageEmbed();
-    embed.setTitle("Music Controls");
+    embed.setTitle("播放控制器⚡");
     const currentTrack = this.currentTrack;
     const nextTrack = this.nextTrack;
     if (!currentTrack) {
@@ -150,7 +150,7 @@ export class MyQueue extends Queue {
       : currentTrack.metadata?.user;
 
     embed.addField(
-      "Now Playing" +
+      "正在播放⚡" +
         (this.size > 2 ? ` (Total: ${this.size} tracks queued)` : ""),
       `[${currentTrack.metadata.title}](${currentTrack.metadata.url ?? "NaN"})${
         user ? ` by ${user}` : ""
@@ -192,8 +192,8 @@ export class MyQueue extends Queue {
     }
 
     embed.addField(
-      "Next Song",
-      nextTrack ? `[${nextTrack.title}](${nextTrack.url})` : "No upcoming song"
+      "下一首",
+      nextTrack ? `[${nextTrack.title}](${nextTrack.url})` : "沒有下一首歌了！"
     );
 
     const pMsg = {
@@ -246,7 +246,7 @@ export class MyQueue extends Queue {
 
     if (!this.size) {
       const pMsg = await interaction.reply(
-        `> Playing **${currentTrack.metadata.title}**`
+        `> 正在播放 **${currentTrack.metadata.title}**`
       );
       if (pMsg instanceof Message) {
         setTimeout(() => pMsg.delete(), 1e4);
@@ -254,7 +254,7 @@ export class MyQueue extends Queue {
       return;
     }
 
-    const current = `> Playing **${currentTrack.metadata.title}** out of ${
+    const current = `> 正在播放清單 **${currentTrack.metadata.title}** 中的 ${
       this.size + 1
     }`;
 
